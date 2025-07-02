@@ -3,58 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <title>ReceitasDB | Encontre sua Receita</title>
-    <link rel="stylesheet" href="/src/index.css">
+    <title>Receitinhas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 font-sans">
-    <div id="app">
-        <header class="bg-vinho shadow-md sticky top-0 z-10">
-            <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-                <a href="/" class="text-2xl font-bold text-white">ReceitasDB</a>
-                <form id="search-form" class="flex items-center">
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        placeholder="Buscar por nome..."
-                        class="border rounded-lg py-2 px-4 w-48 md:w-64 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                    >
-                    <button 
-                type="submit"
-                class="ml-2 bg-white text-vinho font-bold py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors"
-                    >
-                        Buscar
-                    </button>
-                <list class="hidden md:flex space-x-4 ml-6">
-                    <li><a href="index.html" class="text-gray-800 dark:text-white hover:text-yellow-500 transition-colors">Início</a></li>
-                    <li><a href="receita-aleatoria.html" class="text-gray-800 dark:text-white hover:text-yellow-500 transition-colors">receitas aleatórias</a></li>
-                    <li><a href="configuracoes.html" class="text-gray-800 dark:text-white hover:text-yellow-500 transition-colors">configurações</a></li>
-                
-                </form>
-            </nav>
-        </header>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
-        <main class="container mx-auto px-6 py-8">
-            <h1 id="main-title" class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Receitas Populares</h1>
-            
-            <div id="loading-indicator" class="hidden text-center col-span-full py-10">
-                <svg class="animate-spin h-8 w-8 text-yellow-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            </div>
-
-            <div id="recipes-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <nav class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl">Receitinhas</span>
                 </div>
-            
-            <p id="no-results" class="hidden text-center text-gray-600 dark:text-gray-400 mt-8 text-lg">Nenhuma receita encontrada.</p>
-        </main>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium" data-target="inicio">Início</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium" data-target="aleatorias">Receitas Aleatórias</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium" data-target="configuracoes">Configurações</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        <div id="modal-container" class="fixed hidden inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 transition-opacity duration-300">
-            <div id="modal-content" class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative transform scale-95 transition-transform duration-300">
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div id="inicio" class="page">
+            <h1 class="text-2xl font-bold mb-4">Receitas Variadas</h1>
+            <div id="recipes-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 </div>
         </div>
-    </div>
-    <script type="module" src="/src/main.js"></script>
+
+        <div id="aleatorias" class="page hidden">
+            <h1 class="text-2xl font-bold mb-4">Receita Aleatória</h1>
+            <button id="random-recipe-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Gerar Nova Receita
+            </button>
+            <div id="random-recipe-container" class="mt-6">
+                </div>
+        </div>
+
+        <div id="configuracoes" class="page hidden">
+            <h1 class="text-2xl font-bold mb-4">Configurações</h1>
+            <div>
+                <h2 class="text-xl font-semibold mb-2">Tema</h2>
+                <button id="theme-toggle-btn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Alternar Tema
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
