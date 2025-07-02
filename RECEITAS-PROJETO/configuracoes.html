@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -28,9 +28,26 @@
                 <list class="hidden md:flex space-x-4 ml-6">
                     <li><a href="index.html" class="text-gray-800 dark:text-white hover:text-yellow-500 transition-colors">Início</a></li>
                     <li><a href="receita-aleatoria.html" class="text-gray-800 dark:text-white hover:text-yellow-500 transition-colors">receitas aleatórias</a></li>
-                    <li><a href="perfil.html" class="text-gray-800 dark:text-white hover:text-yellow-500 transition-colors">perfil</a></li>
                     <li><a href="configuracoes.html" class="text-gray-800 dark:text-white hover:text-yellow-500 transition-colors">configurações</a></li>
-                
                 </form>
             </nav>
         </header>
+
+        <main class="container mx-auto px-6 py-8">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Configurações</h1>
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl">
+                <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Tema</h2>
+                <button id="theme-toggle-btn" class="bg-vinho text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
+                    Alternar Tema
+                </button>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/UTILS/themeSwitcher.js"></script>
+    <script type="module">
+        import { initializeTheme } from '/src/UTILS/themeSwitcher.js';
+        document.addEventListener('DOMContentLoaded', initializeTheme);
+    </script>
+</body>
+</html>

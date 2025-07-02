@@ -31,7 +31,7 @@ export function createRecipeModalContent(recipe) {
                     <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">${recipe.strInstructions}</p>
                 </div>
             </div>
-             ${recipe.strYoutube ? `<a href="${recipe.strYoutube}" target="_blank" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Ver Vídeo no YouTube</a>` : ''}
+            ${recipe.strYoutube ? `<a href="${recipe.strYoutube}" target="_blank" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Ver Vídeo no YouTube</a>` : ''}
         </div>
     `;
 }

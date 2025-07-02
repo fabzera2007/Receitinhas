@@ -1,6 +1,6 @@
-import './index.css'; // Importa o CSS para aplicar estilos
-import { getRecipeById } from './Services/apiService.js'; // Reutilizamos a função
-import { createRecipeModalContent } from './Components/RecipeModal.js'; // Reutilizamos o componente do modal
+import 'index.css'; // Importa o CSS para aplicar estilos
+import { getRecipeById } from '/Services/apiService.js'; // Reutilizamos a função
+import { createRecipeModalContent } from '/Components/RecipeModal.js'; // Reutilizamos o componente do modal
 
 const sortearBtn = document.getElementById('sortear-btn');
 const receitaContainer = document.getElementById('receita-container');
