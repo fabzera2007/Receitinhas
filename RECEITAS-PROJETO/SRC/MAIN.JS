@@ -3,7 +3,7 @@
 import './index.css'; // <-- GARANTA QUE ESTA LINHA ESTEJA AQUI NO TOPO
 
 import { searchRecipesByName, getRecipeById, getRandomRecipes } from './Services/apiService.js';
-import { createRecipeCard } from './Components/RecipeCard.js';
+import { createRecipeCard } from './COMPONENTS/RecipeCard.js';
 import { createRecipeModalContent } from './Components/RecipeModal.js';
 
 // ... resto do seu código ...
@@ -23,7 +23,7 @@ const modalContent = document.getElementById('modal-content');
 /** Exibe ou esconde o spinner de carregamento */
 function toggleLoading(isLoading) {
     loadingIndicator.classList.toggle('hidden', !isLoading);
-}
+}   
 /** Limpa o grid e exibe uma lista de receitas */
 function displayRecipes(recipes) {
     recipesGrid.innerHTML = '';
@@ -119,3 +119,11 @@ modalContainer.addEventListener('click', (event) => {
 // --- INICIALIZAÇÃO ---
 // Carrega as receitas iniciais quando a página é carregada
 document.addEventListener('DOMContentLoaded', loadInitialRecipes);
+
+import './index.css'; // Importa o CSS para aplicar estilos
+import { getRecipeById } from './Services/apiService.js'; // Reutilizamos a função
+import { createRecipeModalContent } from './Components/RecipeModal.js'; // Reutilizamos o componente do modal
+
+const sortearBtn = document.getElementById('sortear-btn');
+const receitaContainer = document.getElementById('receita-container');
+

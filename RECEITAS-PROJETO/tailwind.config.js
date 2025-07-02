@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Adicione a cor customizada aqui
+      colors: {
+        'vinho': '#800020',
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
