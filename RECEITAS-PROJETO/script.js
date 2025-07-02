@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         recipesToDisplay.forEach(recipe => {
             const recipeElement = document.createElement('div');
-            recipeElement.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden';
+            recipeElement.className = 'recipe-card bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden';
+            recipeElement.setAttribute('data-id', recipe.idMeal);
             recipeElement.innerHTML = `
                 <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" class="w-full h-48 object-cover">
                 <div class="p-4">
@@ -82,4 +83,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carrega as receitas iniciais
     fetchRecipes();
+        // Função para buscar detalhes de uma receita pelo ID
+        async function getRecipeById(id) {
+            try {
+                const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+                const data = await response.json();
+                return data.meals ? data.meals[0] : null;
+            } catch (error) {
+                return null;
+            }
+        }
+    
+        // Função para mostrar um modal simples com detalhes da receita
+        function showModal(recipe) {
+            // Remove modal antigo se existir
+            const oldModal = document.getElementById('recipe-modal');
+            if (oldModal) oldModal.remove();
+    
+            const modal = document.createElement('div');
+            modal.id = 'recipe-modal';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100vw';
+            modal.style.height = '100vh';
+            modal.style.background = 'rgba(0,0,0,0.5)';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '9999';
+    
+            modal.innerHTML = `
+                <div style="background:#fff;max-width:500px;width:90%;padding:24px;border-radius:8px;position:relative;">
+                    <button id="close-modal" style="position:absolute;top:8px;right:12px;font-size:20px;background:none;border:none;cursor:pointer;">&times;</button>
+                    <h2 style="margin-bottom:12px;">${recipe.strMeal || ''}</h2>
+                    ${recipe.strMealThumb ? `<img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" style="width:100%;border-radius:8px;margin-bottom:12px;">` : ''}
+                    <p style="margin-bottom:12px;"><strong>Categoria:</strong> ${recipe.strCategory || ''}</p>
+                    <p style="margin-bottom:12px;"><strong>Origem:</strong> ${recipe.strArea || ''}</p>
+                    <p style="margin-bottom:12px;">${recipe.strInstructions || ''}</p>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.getElementById('close-modal').onclick = () => modal.remove();
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+        }
+    
+        // Clique nos cards de receita
+recipesContainer.addEventListener('click', async (event) => {
+    const card = event.target.closest('.recipe-card');
+    if (card && card.dataset.id) {
+        const recipeId = card.dataset.id;
+        try {
+            showModal({ strMeal: 'Carregando receita...', strInstructions: 'Por favor, aguarde...' });
+            const recipeDetails = await getRecipeById(recipeId);
+            if (recipeDetails) {
+                showModal(recipeDetails);
+            } else {
+                showModal({ strMeal: 'Erro', strInstructions: 'Não foi possível encontrar os detalhes desta receita.' });
+            }
+        } catch (error) {
+            console.error('Falha ao buscar detalhes da receita:', error);
+            showModal({ strMeal: 'Erro de Conexão', strInstructions: 'Não foi possível carregar a receita. Verifique sua conexão.' });
+        }
+    }
 });
+
+    // Carrega uma receita aleatória ao iniciar
+    fetchRandomRecipe();
+});     
