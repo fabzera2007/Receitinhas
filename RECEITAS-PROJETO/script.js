@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const oldModal = document.getElementById('recipe-modal');
             if (oldModal) oldModal.remove();
     
+            const isDark = document.documentElement.classList.contains('dark');
             const modal = document.createElement('div');
             modal.id = 'recipe-modal';
             modal.style.position = 'fixed';
@@ -112,10 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.alignItems = 'center';
             modal.style.justifyContent = 'center';
             modal.style.zIndex = '9999';
-    
+
+            const modalBg = isDark ? '#1f2937' : '#fff'; // dark:bg-gray-800
+            const textColor = isDark ? '#f3f4f6' : '#111827'; // dark:text-gray-100
+
             modal.innerHTML = `
-                <div style="background:#fff;max-width:500px;width:90%;padding:24px;border-radius:8px;position:relative;">
-                    <button id="close-modal" style="position:absolute;top:8px;right:12px;font-size:20px;background:none;border:none;cursor:pointer;">&times;</button>
+                <div style="background:${modalBg};color:${textColor};max-width:500px;width:90%;padding:24px;border-radius:8px;position:relative;">
+                    <button id="close-modal" style="position:absolute;top:8px;right:12px;font-size:20px;background:none;border:none;cursor:pointer;color:${textColor};">&times;</button>
                     <h2 style="margin-bottom:12px;">${recipe.strMeal || ''}</h2>
                     ${recipe.strMealThumb ? `<img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" style="width:100%;border-radius:8px;margin-bottom:12px;">` : ''}
                     <p style="margin-bottom:12px;"><strong>Categoria:</strong> ${recipe.strCategory || ''}</p>
